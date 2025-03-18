@@ -1,0 +1,962 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant with access to an MCP list tool and a lot of other tools. \n\nIf a certain tool needs a specific parameter, use our tools to make sure you get the exact parameter or pull from conversation memory to find it. For instand the UUID is not the name of the application but rather a string of random alphanumeric characters in our returned list of applications. There may be times you have to cross reference data."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1532,
+        -160
+      ],
+      "id": "5cf389e8-94f4-45ce-b20c-5206f9d49799",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        60
+      ],
+      "id": "d46519e7-700c-4530-a2db-b97b132a40b6",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "mp7tI6wH90PEUkvq",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        -160
+      ],
+      "id": "d877df27-e5ce-4c32-8f0e-3e34eb5a73c4",
+      "name": "When chat message received",
+      "webhookId": "cb830f48-53af-4c31-a28a-cf20777d47e5"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        180,
+        60
+      ],
+      "id": "f4563558-dcbd-41ef-b064-620d73cfb517",
+      "name": "List Coolify Tools",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        60,
+        60
+      ],
+      "id": "7467f866-a21a-4ad3-ad11-3977814c478b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_version"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        300,
+        60
+      ],
+      "name": "Get Version",
+      "id": "5ccbad13-e334-4e48-ab06-1c3e30a48640",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "health_check",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        420,
+        60
+      ],
+      "name": "Health Check",
+      "id": "6ca224c9-57a1-4ea4-a511-7dd5fd37be8f",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_teams",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        540,
+        60
+      ],
+      "name": "List Teams",
+      "id": "ba0e8cd4-deb1-4fd4-bd01-db54a7ef0ebf",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_team",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        660,
+        60
+      ],
+      "name": "Get Team",
+      "id": "e83e098e-f67a-4b3a-8eca-59745ecdf29f",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_current_team",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        780,
+        60
+      ],
+      "name": "Get Current Team",
+      "id": "2c58152e-ead6-4f1d-9a61-de494fe56efd",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_current_team_members",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        900,
+        60
+      ],
+      "name": "Get Current Team Members",
+      "id": "582dda39-f1f4-432b-9c3d-3b4aac42315d",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_servers",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        60
+      ],
+      "name": "List Servers",
+      "id": "89eabaad-301c-48e7-b072-f7c67c03c44a",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "create_server",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        60
+      ],
+      "name": "Create Server",
+      "id": "1b0af631-ba9f-4561-986b-6bff1dfcd195",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "validate_server",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        60
+      ],
+      "name": "Validate Server",
+      "id": "eaaad590-0440-4693-abde-e3b4c2fcba70",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_server_resources",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        60
+      ],
+      "name": "Get Server Resources",
+      "id": "a4a006fe-4fb9-4477-970d-7d6b2e252394",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_server_domains",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        60
+      ],
+      "name": "Get Server Domains",
+      "id": "2b9671ff-4bb9-4bf9-b269-c9c90137c8b0",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_services",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        60
+      ],
+      "name": "List Services",
+      "id": "577a3abd-16d7-4e0b-93e6-de09b1fb862d",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "create_service",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        60
+      ],
+      "name": "Create Service",
+      "id": "2b06d4a3-c0c9-449a-826b-20ffea5beeae",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "start_service",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        60
+      ],
+      "name": "Start Service",
+      "id": "0c2ef307-f3a8-40a6-8926-5236668811be",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "stop_service",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        60
+      ],
+      "name": "Stop Service",
+      "id": "1d094dbb-e454-45a5-a879-f6e0344fb0e3",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "restart_service",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        60
+      ],
+      "name": "Restart Service",
+      "id": "73a8b803-507d-4d38-9a8f-47a24391f715",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_applications",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        60
+      ],
+      "name": "List Applications",
+      "id": "afb07949-cfc7-4bc7-bc9e-556aaccbf292",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "create_application",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        60
+      ],
+      "name": "Create Application",
+      "id": "dcbdb4c2-2754-4e15-9b96-4869ce9debd8",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "start_application",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2460,
+        60
+      ],
+      "name": "Start Application",
+      "id": "56595a0c-426a-4ccf-b1b6-41246628205a",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "stop_application",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2580,
+        60
+      ],
+      "name": "Stop Application",
+      "id": "8bc25944-655c-4bf2-9d70-8c9b46c83daa",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "restart_application",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        60
+      ],
+      "name": "Restart Application",
+      "id": "c4cdbcb9-c083-4595-a651-0b117dd55c16",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "execute_command_application",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2820,
+        60
+      ],
+      "name": "Execute Command Application",
+      "id": "fa81f6c7-e6e9-48fe-a14a-9f867e22b1b5",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_deployments",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        60
+      ],
+      "name": "List Deployments",
+      "id": "70c3a4d2-41d0-4574-b434-d370c8e83fbf",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "get_deployment",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        3180,
+        60
+      ],
+      "name": "Get Deployment",
+      "id": "a5528b0e-9baa-4134-8b67-6f64bcc488bb",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "list_private_keys",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        60
+      ],
+      "name": "List Private Keys",
+      "id": "4b383cf8-0780-4226-9835-d5ca34419296",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "create_private_key",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        3300,
+        60
+      ],
+      "name": "Create Private Key",
+      "id": "928a1390-efa2-4895-af2a-ff9753a33dbb",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "442AuWpEl5XUTka2",
+          "name": "Coolify MCP"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Coolify Tools": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Version": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health Check": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Teams": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Team": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Current Team": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Current Team Members": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Servers": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Server": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Server": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Server Resources": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Server Domains": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Services": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Service": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Service": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stop Service": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart Service": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Applications": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Application": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Application": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stop Application": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart Application": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command Application": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Deployments": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Deployment": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Private Keys": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Private Key": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6cc142ddc8a8a3e3c316ed10bef481b7751b7a5736aa1ad59ce09bd04d2bf633"
+  }
+}
