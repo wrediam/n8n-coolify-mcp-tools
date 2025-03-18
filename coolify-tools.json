@@ -3,14 +3,14 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "You are a helpful assistant with access to an MCP list tool and a lot of other tools. \n\nIf a certain tool needs a specific parameter, use our tools to make sure you get the exact parameter or pull from conversation memory to find it. For instand the UUID is not the name of the application but rather a string of random alphanumeric characters in our returned list of applications. There may be times you have to cross reference data."
+          "systemMessage": "You are a helpful assistant with access to Coolify management tools. Here's a detailed guide for using these tools:\n\n# Core System Tools\n\n## Version & Health\n- get_version: Returns current Coolify version information. No parameters needed but must provide empty object {}.\n- health_check: Verifies API health status and connectivity. No parameters needed but must provide empty object {}.\n\n# Team Management\n\n## Team Operations\n- list_teams: Lists all teams accessible to the authenticated user. No parameters needed but must provide empty object {}.\n- get_team: Gets detailed information about a specific team. Required: {team_id: UUID} from list_teams response.\n- get_current_team: Gets information about the currently authenticated team. No parameters needed but must provide empty object {}.\n- get_current_team_members: Lists all members in the current team. No parameters needed but must provide empty object {}.\n\n# Server Management\n\n## Server Operations\n- list_servers: Lists all registered servers. No parameters needed but must provide empty object {}.\n- create_server: Creates a new server registration.\n  Required parameters:\n  - name: Unique server name\n  - ip: Server IP address\n  - port: SSH port (usually 22)\n  - user: SSH username\n  - private_key_uuid: UUID from list_private_keys\n  Optional parameters:\n  - description: Server description\n  - is_build_server: Boolean\n  - proxy_type: 'nginx' or 'caddy'\n- validate_server: Validates server configuration and connectivity. Required: {uuid: server_UUID} from list_servers.\n- get_server_resources: Monitors server resource usage (CPU, memory, disk). Required: {uuid: server_UUID} from list_servers.\n- get_server_domains: Lists domains configured for a server. Required: {uuid: server_UUID} from list_servers.\n\n# Service Management\n\n## Service Operations\n- list_services: Lists all services across servers. No parameters needed but must provide empty object {}.\n- create_service: Creates a new service.\n  Required parameters:\n  - name: Service name\n  - server_uuid: UUID from list_servers\n  - project_uuid: Project UUID\n  Optional:\n  - description: Service description\n  - environment_name: e.g., 'production'\n- start_service: Starts a service. Required: {uuid: service_UUID} from list_services.\n- stop_service: Stops a service. Required: {uuid: service_UUID} from list_services.\n- restart_service: Restarts a service. Required: {uuid: service_UUID} from list_services.\n\n# Application Management\n\n## Application Operations\n- list_applications: Lists all applications. No parameters needed but must provide empty object {}.\n- create_application: Creates a new application.\n  Required parameters:\n  - project_uuid: Project UUID\n  - environment_name: e.g., 'production'\n  - destination_uuid: Server UUID from list_servers\n  Optional:\n  - git_repository: Git repo URL\n  - ports_exposes: Port numbers to expose\n- start_application: Starts an application. Required: {uuid: application_UUID} from list_applications.\n- stop_application: Stops an application. Required: {uuid: application_UUID} from list_applications.\n- restart_application: Restarts an application. Required: {uuid: application_UUID} from list_applications.\n- execute_command_application: Runs a command in application container.\n  Required parameters:\n  - uuid: Application UUID from list_applications\n  - command: Command to execute\n\n# Deployment Management\n\n## Deployment Operations\n- list_deployments: Lists all deployments history. No parameters needed but must provide empty object {}.\n- get_deployment: Gets detailed deployment information. Required: {uuid: deployment_UUID} from list_deployments.\n\n# SSH Key Management\n\n## Key Operations\n- list_private_keys: Lists all stored SSH keys. No parameters needed but must provide empty object {}.\n- create_private_key: Creates a new SSH key entry.\n  Required parameters:\n  - name: Key name\n  - private_key: SSH private key content in PEM format\n  Optional:\n  - description: Key description\n\nNOTE: All UUIDs mentioned are unique identifiers that must be obtained from their respective list operations. Never assume or hardcode UUIDs. Always provide empty object {} for tools that don't require parameters."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        1532,
-        -160
+        1560,
+        -380
       ],
       "id": "5cf389e8-94f4-45ce-b20c-5206f9d49799",
       "name": "AI Agent"
@@ -22,8 +22,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -60,
-        60
+        -40,
+        -160
       ],
       "id": "d46519e7-700c-4530-a2db-b97b132a40b6",
       "name": "OpenRouter Chat Model",
@@ -41,8 +41,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -280,
-        -160
+        -260,
+        -380
       ],
       "id": "d877df27-e5ce-4c32-8f0e-3e34eb5a73c4",
       "name": "When chat message received",
@@ -53,45 +53,35 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        180,
-        60
+        200,
+        -160
       ],
       "id": "f4563558-dcbd-41ef-b064-620d73cfb517",
       "name": "List Coolify Tools",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
     },
     {
-      "parameters": {},
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.3,
-      "position": [
-        60,
-        60
-      ],
-      "id": "7467f866-a21a-4ad3-ad11-3977814c478b",
-      "name": "Simple Memory"
-    },
-    {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "get_version"
+        "toolName": "get_version",
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        300,
-        60
+        320,
+        -160
       ],
       "name": "Get Version",
       "id": "5ccbad13-e334-4e48-ab06-1c3e30a48640",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -100,19 +90,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "health_check",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        420,
-        60
+        440,
+        -160
       ],
       "name": "Health Check",
       "id": "6ca224c9-57a1-4ea4-a511-7dd5fd37be8f",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -121,19 +111,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_teams",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        540,
-        60
+        560,
+        -160
       ],
       "name": "List Teams",
       "id": "ba0e8cd4-deb1-4fd4-bd01-db54a7ef0ebf",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -142,19 +132,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_team",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Gets detailed information about a specific team. Required: team_id (UUID) obtained from list_teams response.`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        660,
-        60
+        680,
+        -160
       ],
       "name": "Get Team",
       "id": "e83e098e-f67a-4b3a-8eca-59745ecdf29f",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -163,19 +153,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_current_team",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        780,
-        60
+        800,
+        -160
       ],
       "name": "Get Current Team",
       "id": "2c58152e-ead6-4f1d-9a61-de494fe56efd",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -184,19 +174,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_current_team_members",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        900,
-        60
+        920,
+        -160
       ],
       "name": "Get Current Team Members",
       "id": "582dda39-f1f4-432b-9c3d-3b4aac42315d",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -205,19 +195,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_servers",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1020,
-        60
+        1040,
+        -160
       ],
       "name": "List Servers",
       "id": "89eabaad-301c-48e7-b072-f7c67c03c44a",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -226,19 +216,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "create_server",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Creates a new server registration. Required: name (string), ip (string), port (number), user (string), private_key_uuid (UUID from list_private_keys). Optional: description, is_build_server (boolean), proxy_type (nginx/caddy).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1140,
-        60
+        1160,
+        -160
       ],
       "name": "Create Server",
       "id": "1b0af631-ba9f-4561-986b-6bff1dfcd195",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -247,19 +237,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "validate_server",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Validates server configuration and connectivity. Required: uuid (server UUID from list_servers).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1260,
-        60
+        1280,
+        -160
       ],
       "name": "Validate Server",
       "id": "eaaad590-0440-4693-abde-e3b4c2fcba70",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -268,19 +258,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_server_resources",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Gets server resource usage (CPU, memory, disk). Required: uuid (server UUID from list_servers).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1380,
-        60
+        1400,
+        -160
       ],
       "name": "Get Server Resources",
       "id": "a4a006fe-4fb9-4477-970d-7d6b2e252394",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -289,19 +279,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_server_domains",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Lists domains configured for a server. Required: uuid (server UUID from list_servers).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1500,
-        60
+        1520,
+        -160
       ],
       "name": "Get Server Domains",
       "id": "2b9671ff-4bb9-4bf9-b269-c9c90137c8b0",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -310,19 +300,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_services",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1620,
-        60
+        1640,
+        -160
       ],
       "name": "List Services",
       "id": "577a3abd-16d7-4e0b-93e6-de09b1fb862d",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -331,19 +321,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "create_service",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Creates a new service. Required: name (string), server_uuid (UUID from list_servers), project_uuid (UUID). Optional: description, environment_name.`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1740,
-        60
+        1760,
+        -160
       ],
       "name": "Create Service",
       "id": "2b06d4a3-c0c9-449a-826b-20ffea5beeae",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -352,19 +342,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "start_service",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Starts a service. Required: uuid (service UUID from list_services).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1860,
-        60
+        1880,
+        -160
       ],
       "name": "Start Service",
       "id": "0c2ef307-f3a8-40a6-8926-5236668811be",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -373,19 +363,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "stop_service",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Stops a service. Required: uuid (service UUID from list_services).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1980,
-        60
+        2000,
+        -160
       ],
       "name": "Stop Service",
       "id": "1d094dbb-e454-45a5-a879-f6e0344fb0e3",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -394,19 +384,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "restart_service",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Restarts a service. Required: uuid (service UUID from list_services).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2100,
-        60
+        2120,
+        -160
       ],
       "name": "Restart Service",
       "id": "73a8b803-507d-4d38-9a8f-47a24391f715",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -415,19 +405,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_applications",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2220,
-        60
+        2240,
+        -160
       ],
       "name": "List Applications",
       "id": "afb07949-cfc7-4bc7-bc9e-556aaccbf292",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -436,19 +426,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "create_application",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Creates a new application. Required: project_uuid (UUID), environment_name (string), destination_uuid (server UUID from list_servers). Optional: git_repository (URL), ports_exposes (string).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2340,
-        60
+        2360,
+        -160
       ],
       "name": "Create Application",
       "id": "dcbdb4c2-2754-4e15-9b96-4869ce9debd8",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -457,19 +447,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "start_application",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Starts an application. Required: uuid (application UUID from list_applications).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2460,
-        60
+        2480,
+        -160
       ],
       "name": "Start Application",
       "id": "56595a0c-426a-4ccf-b1b6-41246628205a",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -478,19 +468,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "stop_application",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Stops an application. Required: uuid (application UUID from list_applications).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2580,
-        60
+        2600,
+        -160
       ],
       "name": "Stop Application",
       "id": "8bc25944-655c-4bf2-9d70-8c9b46c83daa",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -499,19 +489,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "restart_application",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Restarts an application. Required: uuid (application UUID from list_applications).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2700,
-        60
+        2720,
+        -160
       ],
       "name": "Restart Application",
       "id": "c4cdbcb9-c083-4595-a651-0b117dd55c16",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -520,19 +510,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "execute_command_application",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Executes a command in an application container. Required: uuid (application UUID from list_applications), command (string to execute).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2820,
-        60
+        2840,
+        -160
       ],
       "name": "Execute Command Application",
       "id": "fa81f6c7-e6e9-48fe-a14a-9f867e22b1b5",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -541,19 +531,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_deployments",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2940,
-        60
+        2960,
+        -160
       ],
       "name": "List Deployments",
       "id": "70c3a4d2-41d0-4574-b434-d370c8e83fbf",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -562,19 +552,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "get_deployment",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Gets detailed deployment information. Required: uuid (deployment UUID from list_deployments).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3180,
-        60
+        3200,
+        -160
       ],
       "name": "Get Deployment",
       "id": "a5528b0e-9baa-4134-8b67-6f64bcc488bb",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -583,19 +573,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "list_private_keys",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "{}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3060,
-        60
+        3080,
+        -160
       ],
       "name": "List Private Keys",
       "id": "4b383cf8-0780-4226-9835-d5ca34419296",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -604,19 +594,19 @@
       "parameters": {
         "operation": "executeTool",
         "toolName": "create_private_key",
-        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', `Creates a new SSH key entry. Required: name (string), private_key (PEM format string). Optional: description (string).`, 'json') }}"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3300,
-        60
+        3320,
+        -160
       ],
       "name": "Create Private Key",
       "id": "928a1390-efa2-4895-af2a-ff9753a33dbb",
       "credentials": {
         "mcpClientApi": {
-          "id": "442AuWpEl5XUTka2",
+          "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
@@ -651,17 +641,6 @@
           {
             "node": "AI Agent",
             "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Simple Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
             "index": 0
           }
         ]
