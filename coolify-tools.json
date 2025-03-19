@@ -1,4 +1,5 @@
 {
+  "name": "Coolify Control Clean",
   "nodes": [
     {
       "parameters": {
@@ -9,10 +10,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        1560,
-        -380
+        5232,
+        500
       ],
-      "id": "5cf389e8-94f4-45ce-b20c-5206f9d49799",
+      "id": "f27a4112-6b7d-4148-8c66-31a5fb1c2434",
       "name": "AI Agent"
     },
     {
@@ -22,10 +23,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -40,
-        -160
+        3640,
+        720
       ],
-      "id": "d46519e7-700c-4530-a2db-b97b132a40b6",
+      "id": "1a320ec9-9a16-4d24-aebd-f283d3729088",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
@@ -35,28 +36,14 @@
       }
     },
     {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -260,
-        -380
-      ],
-      "id": "d877df27-e5ce-4c32-8f0e-3e34eb5a73c4",
-      "name": "When chat message received",
-      "webhookId": "cb830f48-53af-4c31-a28a-cf20777d47e5"
-    },
-    {
       "parameters": {},
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        200,
-        -160
+        3880,
+        720
       ],
-      "id": "f4563558-dcbd-41ef-b064-620d73cfb517",
+      "id": "b0225072-84c7-4ec5-b7df-b9fa544dac78",
       "name": "List Coolify Tools",
       "credentials": {
         "mcpClientApi": {
@@ -68,17 +55,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "get_version",
-        "toolParameters": "{}"
+        "toolName": "get_version"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        320,
-        -160
+        4000,
+        720
       ],
       "name": "Get Version",
-      "id": "5ccbad13-e334-4e48-ab06-1c3e30a48640",
+      "id": "a85f76b5-3d5f-42d0-a1ea-b648689c7d8d",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -89,17 +75,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "health_check",
-        "toolParameters": "{}"
+        "toolName": "health_check"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        440,
-        -160
+        4120,
+        720
       ],
       "name": "Health Check",
-      "id": "6ca224c9-57a1-4ea4-a511-7dd5fd37be8f",
+      "id": "7580941a-90ff-4a5f-a1e9-d3ead28d9076",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -110,17 +95,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_teams",
-        "toolParameters": "{}"
+        "toolName": "list_teams"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        560,
-        -160
+        4240,
+        720
       ],
       "name": "List Teams",
-      "id": "ba0e8cd4-deb1-4fd4-bd01-db54a7ef0ebf",
+      "id": "69a5e797-db3e-460a-8c26-effef2baa3c9",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -137,11 +121,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        680,
-        -160
+        4360,
+        720
       ],
       "name": "Get Team",
-      "id": "e83e098e-f67a-4b3a-8eca-59745ecdf29f",
+      "id": "6a8dbd53-51d9-4978-82b4-8bd40e2d3dcc",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -152,17 +136,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "get_current_team",
-        "toolParameters": "{}"
+        "toolName": "get_current_team"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        800,
-        -160
+        4480,
+        720
       ],
       "name": "Get Current Team",
-      "id": "2c58152e-ead6-4f1d-9a61-de494fe56efd",
+      "id": "b92f87c5-aff4-4943-99c6-03b06b202363",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -173,17 +156,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "get_current_team_members",
-        "toolParameters": "{}"
+        "toolName": "get_current_team_members"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        920,
-        -160
+        4600,
+        720
       ],
       "name": "Get Current Team Members",
-      "id": "582dda39-f1f4-432b-9c3d-3b4aac42315d",
+      "id": "61f429e8-ce73-446c-8ca2-b9ae091c0b08",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -194,17 +176,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_servers",
-        "toolParameters": "{}"
+        "toolName": "list_servers"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1040,
-        -160
+        4720,
+        720
       ],
       "name": "List Servers",
-      "id": "89eabaad-301c-48e7-b072-f7c67c03c44a",
+      "id": "73272cc3-201a-4ec3-b4f7-cbcce2024f16",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -221,11 +202,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1160,
-        -160
+        4840,
+        720
       ],
       "name": "Create Server",
-      "id": "1b0af631-ba9f-4561-986b-6bff1dfcd195",
+      "id": "c017244f-116b-47fb-8a82-ff65092a77f7",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -242,11 +223,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1280,
-        -160
+        4960,
+        720
       ],
       "name": "Validate Server",
-      "id": "eaaad590-0440-4693-abde-e3b4c2fcba70",
+      "id": "b247a898-4e38-41f6-a688-196a932cd0f4",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -263,11 +244,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1400,
-        -160
+        5080,
+        720
       ],
       "name": "Get Server Resources",
-      "id": "a4a006fe-4fb9-4477-970d-7d6b2e252394",
+      "id": "6e2d034b-1834-49c4-b95b-9b1474c2d116",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -284,11 +265,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1520,
-        -160
+        5200,
+        720
       ],
       "name": "Get Server Domains",
-      "id": "2b9671ff-4bb9-4bf9-b269-c9c90137c8b0",
+      "id": "006445e6-c07a-4077-ae86-b1bc1c69abca",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -299,17 +280,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_services",
-        "toolParameters": "{}"
+        "toolName": "list_services"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1640,
-        -160
+        5320,
+        720
       ],
       "name": "List Services",
-      "id": "577a3abd-16d7-4e0b-93e6-de09b1fb862d",
+      "id": "a8171bdf-d4ad-4bca-b4f7-15d7d1f9ed17",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -326,11 +306,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1760,
-        -160
+        5440,
+        720
       ],
       "name": "Create Service",
-      "id": "2b06d4a3-c0c9-449a-826b-20ffea5beeae",
+      "id": "1530795e-cacb-43fd-9c62-f41b4d009227",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -347,11 +327,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        1880,
-        -160
+        5560,
+        720
       ],
       "name": "Start Service",
-      "id": "0c2ef307-f3a8-40a6-8926-5236668811be",
+      "id": "08302005-6c29-4ee7-a70e-d94dd0732ed1",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -368,11 +348,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2000,
-        -160
+        5680,
+        720
       ],
       "name": "Stop Service",
-      "id": "1d094dbb-e454-45a5-a879-f6e0344fb0e3",
+      "id": "d60eb942-5af7-4a69-b6ae-850e45f18670",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -389,11 +369,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2120,
-        -160
+        5800,
+        720
       ],
       "name": "Restart Service",
-      "id": "73a8b803-507d-4d38-9a8f-47a24391f715",
+      "id": "81263e6e-06f8-4e70-ba72-b31361d8a391",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -404,17 +384,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_applications",
-        "toolParameters": "{}"
+        "toolName": "list_applications"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2240,
-        -160
+        5920,
+        720
       ],
       "name": "List Applications",
-      "id": "afb07949-cfc7-4bc7-bc9e-556aaccbf292",
+      "id": "2c9bb5b2-dfed-4cb6-8b20-4c7e3e3363f9",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -431,11 +410,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2360,
-        -160
+        6040,
+        720
       ],
       "name": "Create Application",
-      "id": "dcbdb4c2-2754-4e15-9b96-4869ce9debd8",
+      "id": "670be8f7-1ef5-4f72-aad5-6d76980e355c",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -452,11 +431,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2480,
-        -160
+        6160,
+        720
       ],
       "name": "Start Application",
-      "id": "56595a0c-426a-4ccf-b1b6-41246628205a",
+      "id": "4c7259d9-8247-4b55-ac4a-9b5bbe55235f",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -473,11 +452,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2600,
-        -160
+        6280,
+        720
       ],
       "name": "Stop Application",
-      "id": "8bc25944-655c-4bf2-9d70-8c9b46c83daa",
+      "id": "9cafeccb-74a1-44f1-a1f3-74a4cf874373",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -494,11 +473,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2720,
-        -160
+        6400,
+        720
       ],
       "name": "Restart Application",
-      "id": "c4cdbcb9-c083-4595-a651-0b117dd55c16",
+      "id": "91e67f5a-7889-4d74-be5e-41f70a008dc4",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -515,11 +494,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2840,
-        -160
+        6520,
+        720
       ],
       "name": "Execute Command Application",
-      "id": "fa81f6c7-e6e9-48fe-a14a-9f867e22b1b5",
+      "id": "7652e2f9-d8fe-4d89-ac4e-792523d88bdc",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -530,17 +509,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_deployments",
-        "toolParameters": "{}"
+        "toolName": "list_deployments"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        2960,
-        -160
+        6640,
+        720
       ],
       "name": "List Deployments",
-      "id": "70c3a4d2-41d0-4574-b434-d370c8e83fbf",
+      "id": "d2cfed65-6bd3-4b7d-9c1e-06d4d8bf8f11",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -557,11 +535,11 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3200,
-        -160
+        6760,
+        720
       ],
       "name": "Get Deployment",
-      "id": "a5528b0e-9baa-4134-8b67-6f64bcc488bb",
+      "id": "3d872b3a-15d8-452c-8fd7-58a26bf7b13c",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -572,17 +550,16 @@
     {
       "parameters": {
         "operation": "executeTool",
-        "toolName": "list_private_keys",
-        "toolParameters": "{}"
+        "toolName": "list_private_keys"
       },
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3080,
-        -160
+        6880,
+        720
       ],
       "name": "List Private Keys",
-      "id": "4b383cf8-0780-4226-9835-d5ca34419296",
+      "id": "67126963-f17c-45b8-b8ad-33f53b00eec4",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
@@ -599,19 +576,45 @@
       "type": "n8n-nodes-mcp.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3320,
-        -160
+        7000,
+        720
       ],
       "name": "Create Private Key",
-      "id": "928a1390-efa2-4895-af2a-ff9753a33dbb",
+      "id": "9ecdf503-7a83-41b9-b9a4-8cb657963b85",
       "credentials": {
         "mcpClientApi": {
           "id": "17iMX07eX1115WPl",
           "name": "Coolify MCP"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        3760,
+        720
+      ],
+      "id": "eaba140b-d88c-4d06-9fed-12b659b8c24f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        4900,
+        500
+      ],
+      "id": "7991cd0d-dc4a-476d-9ceb-284ddd9588f3",
+      "name": "Ask the AI",
+      "webhookId": "1b4b4d4c-eabe-45f9-a940-20660bfc8e5f"
     }
   ],
+  "pinData": {},
   "connections": {
     "OpenRouter Chat Model": {
       "ai_languageModel": [
@@ -619,17 +622,6 @@
           {
             "node": "AI Agent",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When chat message received": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
             "index": 0
           }
         ]
@@ -931,11 +923,39 @@
           }
         ]
       ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask the AI": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7fa0b2fb-5817-4ecc-aec5-5f89d8e791d5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "6cc142ddc8a8a3e3c316ed10bef481b7751b7a5736aa1ad59ce09bd04d2bf633"
-  }
+  },
+  "id": "YmmMEysWo1TEHcTe",
+  "tags": []
 }
